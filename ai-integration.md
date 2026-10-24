@@ -251,7 +251,10 @@ source: Claude
 | AI 想自动写回 | 先写 `memory/sync-inbox.md`，由本人周度归档（不要直写正式文件） |
 | 手机上改档案 | GitHub App / Working Copy，或在手机浏览器打开 raw URL |
 
-完整施工图见 [docs/knowledge-sync-plan.md](./docs/knowledge-sync-plan.md)。
+| 手机/平板该怎么改 | GitHub App / 手机浏览器编辑，或用 iOS Working Copy |
+| Codex 本机怎么接 | `tools/setup-codex.sh` 一键安装：`git clone` 仓库后执行，向 `~/.codex/AGENTS.md` 追加指针 + 安装 `~/.codex/instructions/archive-bridge.md`（幂等、可 `--rollback`） |
+
+完整施工图见 [docs/knowledge-sync-plan.md](./docs/knowledge-sync-plan.md)，Codex 端细节见该文件 §8。
 
 ---
 

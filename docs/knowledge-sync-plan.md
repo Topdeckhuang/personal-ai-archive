@@ -250,7 +250,57 @@ Topdeckhuang/personal-ai-archive-private   私有：健康、财务、家庭、�
 
 ---
 
-## 8. 已知限制（说在前面）
+## 8. Codex 端接入（Air / Studio）
+
+> 本机（Air 端，MacBook Air 15' M4）已安装完成 ✅；Studio 端按同样一条命令即可。
+
+### 9.1 Air 端已做
+
+| 动作 | 结果 |
+| --- | --- |
+| 建立 canonical 路径 `~/personal-ai-archive` | ✅ git clone 自远端，工作区干净 |
+| 安装桥接规则 `~/.codex/instructions/archive-bridge.md` | ✅ Codex 按需读 |
+| 向 `~/.codex/AGENTS.md` 追加 §5 指针 | ✅ **纯追加 6 行、0 删除**（符合该文件治理地位） |
+| 备份 | ✅ `~/.codex/AGENTS.md.backup-archive-20261024-150614` |
+
+为什么要做成"追加一小段 + 独立参考文件"：`~/.codex/AGENTS.md` 是常驻核心、每轮加载，堆细节会吃额度并稀释硬门；所以它只留指针，细节放 `instructions/archive-bridge.md` 按需读。
+
+### 9.2 Studio 端：一条命令
+
+```bash
+git clone https://github.com/Topdeckhuang/personal-ai-archive.git ~/personal-ai-archive && ~/personal-ai-archive/tools/setup-codex.sh
+```
+
+脚本幂等、可回滚：
+
+```bash
+~/personal-ai-archive/tools/setup-codex.sh --check     # 检查安装状态
+~/personal-ai-archive/tools/setup-codex.sh --dry-run   # 只看将做什么
+~/personal-ai-archive/tools/setup-codex.sh --rollback  # 从最近备份恢复 AGENTS.md
+```
+
+🚫 **不要用 `curl -sL ... | bash`** 装任何东西——你自己的 `AGENTS.md` §3 已明令「不运行来源不明远程脚本」。先 clone 再执行本地脚本，既符合该硬门又可 diff 后决定是否执行。
+
+### 9.3 Codex 端的三条行为约束
+
+1. **读到 `{{占位符}}` = 该字段未知**，按"待确认"处理，不替本人补写成"看起来合理"的答案。
+2. **`ai-readonly` 文件不可改**：`identity/`、`workflow/communication-style.md`、`workflow/priority-rules.md` 属此类。
+3. **写回先落 `memory/sync-inbox.md`**，列出拟写入内容取得明确确认后再归档；PAT 只从钥匙串取，不落盘不进日志。
+
+### 9.4 两端一致性自检
+
+```bash
+在每台机器上分别执行，两处输出的 HEAD 应当相同：
+
+```bash
+git -C ~/personal-ai-archive rev-parse HEAD      # 两端应一致
+~/personal-ai-archive/tools/setup-codex.sh --check
+```
+```
+
+---
+
+## 9. 已知限制（说在前面）
 
 | 项 | 现状 |
 | --- | --- |

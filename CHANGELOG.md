@@ -22,4 +22,6 @@
 | 2026-10-24 | tools/sync.sh, tools/api-sync.sh | 灵犀 WorkBuddy | 新增一键同步脚本与 REST API 兜底通道 | dae9d45 |
 | 2026-10-24 | docs/_templates/month-log.md | 灵犀 WorkBuddy | 月度日志统一模板 | dae9d45 |
 | 2026-10-24 | .github/workflows/weekly-digest.yml | 灵犀 WorkBuddy | 周度维护提醒 + 月度日志自动生成 | dae9d45 |
+| 2026-10-24 | integrations/codex/*、tools/setup-codex.sh | 灵犀 WorkBuddy | Codex 端桥接规则 + 幂等安装脚本（含 --check/--dry-run/--rollback） | 待提交 |
+| 2026-10-24 | docs/knowledge-sync-plan.md、ai-integration.md | 灵犀 WorkBuddy | 新增 §8 Codex 端接入（Air 已装、Studio 一键） | 待提交 |
 | {{日期}} | {{文件路径}} | {{修改者}} | {{变更摘要}} | {{commit 哈希}} |
