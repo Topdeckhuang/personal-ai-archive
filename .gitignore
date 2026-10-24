@@ -1,0 +1,23 @@
+# 本机临时文件 / 编辑器缓存
+.DS_Store
+.AppleDouble
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# 私人笔记草稿（未去敏前不要提交）
+_private/
+*.private.md
+local-drafts/
+
+# 意外产生的密钥文件（若被创建，绝不允许提交）
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+*.token
+credentials.json
+secrets.*
