@@ -15,5 +15,6 @@
 
 | 日期 | 文件 | 修改者 | 变更摘要 | commit |
 | --- | --- | --- | --- | --- |
-| 2026-10-24 | 全部 | 灵犀 WorkBuddy | 初始化仓库：5 大目录 + AI 标签体系 + ai-integration.md + CHANGELOG | c0ffee1 |
+| 2026-10-24 | 全部 | 灵犀 WorkBuddy | 初始化仓库：5 大目录 + AI 标签体系 + ai-integration.md + CHANGELOG | ad05d58 |
+| 2026-10-24 | README.md | 灵犀 WorkBuddy | 仓库 bootstrap 首个提交 | d9f9158 |
 | {{日期}} | {{文件路径}} | {{修改者}} | {{变更摘要}} | {{commit 哈希}} |
