@@ -239,4 +239,20 @@ source: Claude
 
 ---
 
+## 9. 多端衔接（快查）
+
+**唯一事实源是本 Git 仓库**，所有 AI / 手机 / 另一台电脑都读同一份；写入统一收口到 commit。
+
+| 场景 | 做法 |
+| --- | --- |
+| 开始干活前 | `tools/sync.sh pull` |
+| 改完要上传 | `tools/sync.sh push "<type>(<file>): <简述>"` |
+| git push 被网络阻断 | `tools/api-sync.sh push-file <文件>` / `append <文件> "一行内容"`（REST API 通道） |
+| AI 想自动写回 | 先写 `memory/sync-inbox.md`，由本人周度归档（不要直写正式文件） |
+| 手机上改档案 | GitHub App / Working Copy，或在手机浏览器打开 raw URL |
+
+完整施工图见 [docs/knowledge-sync-plan.md](./docs/knowledge-sync-plan.md)。
+
+---
+
 <!-- AI-TAG: root.ai-integration | ACCESS: ai-editable | LAST-UPDATED: 2026-10-24 | 文件结束 -->

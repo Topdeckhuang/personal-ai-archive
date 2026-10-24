@@ -1,0 +1,91 @@
+# =============================================================
+# 档案维护自动化：月度模板生成 + 周度归档提醒
+# 触发时间: 每周一 02:00 UTC = 北京时间 10:00
+# 也可在 Actions 页手动 Run workflow
+# 注意: 仓库连续 60 天无活动时 GitHub 会暂停定时任务，届时手动触发即可恢复
+# =============================================================
+name: archive-weekly
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 确保存在下个月的月度日志模板
+        run: |
+          set -e
+          NEXT=$(date -u -d "+1 month" +%Y-%m)
+          FILE="memory/logs/${NEXT}.md"
+          if [ ! -f "$FILE" ]; then
+            mkdir -p memory/logs
+            sed "s/{{YYYY-MM}}/${NEXT}/g" docs/_templates/month-log.md > "$FILE"
+            git config user.name "archive-bot"
+            git config user.email "archive-bot@users.noreply.github.com"
+            git add "$FILE"
+            git commit -m "chore(memory): 新建 ${NEXT} 月度日志模板"
+            git push origin HEAD:main
+            echo "已生成 $FILE"
+          else
+            echo "$FILE 已存在，跳过"
+          fi
+
+      - name: 创建周度归档提醒 issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today = new Date().toISOString().slice(0, 10);
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: "maintenance"
+              });
+            } catch (e) {
+              try {
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: "maintenance",
+                  color: "0e8a16",
+                  description: "档案仓库维护提醒"
+                });
+              } catch (e2) { /* 标签已存在或权限不足时忽略 */ }
+            }
+            const body = [
+              `本周档案维护提醒（${today}），预计 10 分钟：`,
+              "",
+              "**1. 归档 AI 暂存区**",
+              "- 打开 `memory/sync-inbox.md`，把确认过的条目剪贴到 `preferences.md` / `decisions.md` / `experiences.md`",
+              "- 不准确的条目直接删除，并在 `experiences.md` 记一条「AI 理解偏差」",
+              "",
+              "**2. 更新技能熟练度**",
+              "- `skills/inventory.md`：本月有明显进步的技能上调一档",
+              "- `skills/gaps.md`：勾掉已补上的能力",
+              "",
+              "**3. 检查 AI 行为是否跑偏**",
+              "- 若本周某 AI 无视了 `workflow/communication-style.md`，在 `memory/experiences.md` 记一笔",
+              "",
+              "**4. 同步到所有端**",
+              "- 各设备执行 `git pull`（或用 `tools/sync.sh pull`）",
+              "- 每次写入务必在根目录 `CHANGELOG.md` 追加一行留痕",
+              "",
+              "完成后关闭本 issue。"
+            ].join("\n");
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `周度档案维护 ${today}`,
+              body,
+              labels: ["maintenance"]
+            });

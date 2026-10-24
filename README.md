@@ -58,7 +58,14 @@ personal-ai-archive/
 │   ├── projects.md             已完结项目清单与结论
 │   ├── old-documents/          旧版文档、停用草稿
 │   └── README.md
-├── ai-integration.md   接入配置（最重要）
+├── docs/                施工图与使用指南
+│   ├── knowledge-sync-plan.md   知识同步 + 多端衔接完整方案
+│   └── _templates/month-log.md  月度日志模板（供脚本与 Actions 复用）
+├── tools/               同步脚本
+│   ├── sync.sh                  日常 pull / push / track / revert / newlog
+│   └── api-sync.sh              git 被网络阻断时的 REST API 兜底通道
+├── .github/workflows/   weekly-digest.yml（月度模板生成 + 周度归档提醒）
+├── ai-integration.md    接入配置（最重要）
 ├── CHANGELOG.md        每次修改的留痕日志
 └── README.md           本文件
 ```
@@ -146,6 +153,23 @@ git revert --no-commit <commit-hash>..HEAD && git commit -m "revert: 整体回�
 
 # 或者在 GitHub 网页端：仓库 → Commits → 选历史提交 → Browse files → 复制内容覆盖当前文件
 ```
+
+---
+
+### 4.4 多端同步与知识沉淀（每次怎么同步）
+
+Git 仓库是唯一事实源，所有 AI / 手机 / 另一台电脑都读同一份，写入统一收口到 commit。
+
+```bash
+./tools/sync.sh pull                             # 干活前：拉最新
+./tools/sync.sh push "memory: 补本周偏好"         # 结束前：提交并推送（脚本会强制先 pull）
+./tools/sync.sh newlog                           # 每月初：生成下月空的月度日志
+```
+
+- **手机上改档案**：GitHub App / iOS Working Copy / 手机浏览器开 raw URL，改完直接 commit。
+- **git push 失败（公司代理、受限网络）**：改用 `./tools/api-sync.sh push-file <文件>` 或 `append <文件> "一行内容"` 走 REST API 通道。
+- **AI 想自动写回**：先写 `memory/sync-inbox.md`，你每周花 5 分钟归档，绝不让它直改正式文件。
+- 完整施工图（含 Token 治理、Actions 自动归档、隐私分层仓）：[docs/knowledge-sync-plan.md](./docs/knowledge-sync-plan.md)。
 
 ---
 
