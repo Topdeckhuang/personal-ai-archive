@@ -25,4 +25,5 @@
 | 2026-10-24 | integrations/codex/*、tools/setup-codex.sh | 灵犀 WorkBuddy | Codex 端桥接规则 + 幂等安装脚本（含 --check/--dry-run/--rollback） | 487355f |
 | 2026-10-24 | docs/knowledge-sync-plan.md、ai-integration.md | 灵犀 WorkBuddy | 新增 §8 Codex 端接入（Air 已装、Studio 一键） | 487355f |
 | 2026-10-25 | tasks/STUDIO-deploy-codex.md | 灵犀 WorkBuddy | Studio 端部署任务书 + 任务指令（目标/范围/步骤/交付/验收） | 725108a |
+| 2026-10-25 | identity/profile.md, communication-style.md, priority-rules.md, values-and-goals.md, tags.md, habits.md, tools.md, memory/preferences.md | 灵犀 WorkBuddy | 依用户授权（选项1）填入 [事实] 项：沟通偏好/工具栈/身份/优先级/价值观/标签/习惯/偏好；[推断]与[待填]保留占位符；ai-readonly 文件经用户明确授权写入 | 8e56e6b |
 | {{日期}} | {{文件路径}} | {{修改者}} | {{变更摘要}} | {{commit 哈希}} |
