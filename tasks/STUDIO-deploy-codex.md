@@ -142,8 +142,13 @@ git -C ~/personal-ai-archive pull --rebase --autostash
 
 ## 8. 备注（任务书外，仅给本人）
 
-- 本任务书**只覆盖"档案系统 + Codex 桥接"**。Air 端的 WorkBuddy 经 `gh` 可间接读写本仓库；但 **DeepSeek（军师）/ Harness（司穹）是否可用、是否已对接本仓库，目前无证据**，需你确认或另派核实任务。
-- 仓库当前是空壳（252 处占位符未填），本任务**不产生任何真实个人内容**。真实知识沉淀（Obsidian / WeKnora 等）是独立的后续任务，敏感内容应进私有仓。
+- 本任务书**只覆盖"档案系统 + Codex 桥接"**。已核实（2026-10-25，Air 端实际状态）：
+  - **Codex**：✅ 已桥接本仓库（`~/.codex/AGENTS.md` 纯追加指针 + `~/.codex/instructions/archive-bridge.md`），见附录取证。
+  - **WorkBuddy**：✅ 本会话即运行于 Air 端，经 `gh` 读写本仓库（仓库即由其搭建）。
+  - **DeepSeek（军师）**：⚠️ 工具链本地存在（`junshi` / `junshi-ask` / `dsh`），依赖 `DEEPSEEK_API_KEY`；但**未与本仓库建立任何桥接**（脚本零引用），需另派任务接入。
+  - **Harness（司穹 / deepseek-harness）**：⚠️ 本地存在完整 monorepo（`~/Documents/部署/deepseek-harness`）+ `.app` 封装；但**未与本仓库建立桥接**，需另派任务接入。
+  - 结论：四件套中**仅 Codex 已对接本仓库**；DeepSeek / Harness 可用但未接线，不属于本任务书范围。
+- 仓库当前是空壳（252 处占位符未填），本任务**不产生任何真实个人内容**。真实知识沉淀（Obsidian / WeKnora 等）是独立的后续任务，敏感内容应进私有仓（你若把本仓设为私密，可单独上传蒸馏/浓缩内容）。
 
 ---
 
